@@ -8,9 +8,8 @@
 </head>
 <body>
 	<div>
-		welcome page..
-		Name : ${userName}
-		Your Todos<a href="todos"/>Manage 
+		<h1 class="h3">Welcome ${userName}</h1><br/>
+		<h1 class="h4">Your Todos<a href="todos"/>Manage </h1>
 	</div>
 </body>
 </html>

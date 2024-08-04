@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.todoapplication.entities.Todo;
-import com.project.todoapplication.service.AuthenticationService;
+import com.project.todoapplication.service.AuthenticatedUser;
 import com.project.todoapplication.service.TodoService;
 
 import jakarta.validation.Valid;
@@ -23,13 +23,13 @@ public class TodoController {
 	private TodoService todoService;
 	
 	@Autowired
-	private AuthenticationService authenticationService;
+	private AuthenticatedUser authenticateduser;
 
 	@RequestMapping(value="/todos",method = RequestMethod.GET)
 	public String todos(Model model) {
-		List<Todo> allTodos = todoService.getAllTodos(authenticationService.getUserName());
+		List<Todo> allTodos = todoService.getAllTodos(authenticateduser.getUserName());
 		model.addAttribute("todosList",allTodos);
-		model.addAttribute("userName",authenticationService.getUserName());
+		model.addAttribute("userName",authenticateduser.getUserName());
 		return "todos";
 	}
 	
@@ -44,9 +44,9 @@ public class TodoController {
 		if(br.hasErrors()) {
 			return  "todo";
 		}
-		todo.setUserName(authenticationService.getUserName());
+		todo.setUserName(authenticateduser.getUserName());
 		todoService.addNewTodo(todo);
-		todo.setUserName(authenticationService.getUserName());
+		todo.setUserName(authenticateduser.getUserName());
 		model.addAttribute(todo);
 		return "redirect:todos";
 	}

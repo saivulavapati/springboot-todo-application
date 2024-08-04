@@ -17,7 +17,7 @@ public class SecurityConfiguration {
 	
 	@Bean
 	public UserDetailsService userDetailsService() {
-		UserDetails user = User.withUsername("Sai")
+		UserDetails user = User.withUsername("sai")
 				.password("{noop}vulavapati")
 				.roles("USER")
 				.build();
@@ -34,8 +34,7 @@ public class SecurityConfiguration {
 	SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests((requests) -> requests.requestMatchers("/h2-console/**").permitAll().
 				anyRequest().authenticated());
-//		http.formLogin(Customizer.withDefaults());
-		http.httpBasic(Customizer.withDefaults());
+		http.formLogin(Customizer.withDefaults());
 		http.headers(headers -> headers.frameOptions(frameOptions -> frameOptions.sameOrigin()));
 		http.csrf(csrf -> csrf.disable());
 		return http.build();
